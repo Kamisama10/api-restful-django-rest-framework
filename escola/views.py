@@ -4,19 +4,18 @@ from rest_framework import viewsets, generics
 
 
 class EstudanteViewSet(viewsets.ModelViewSet):
-
-    queryset = Estudante.objects.all()
+    queryset = Estudante.objects.all().order_by('id')
     serializer_class = EstudanteSerializer
 
 
 class CursoViewSet(viewsets.ModelViewSet):
 
-    queryset = Curso.objects.all()
+    queryset = Curso.objects.all().order_by('id')
     serializer_class = CursoSerializer
     
 class MatriculaViewSet(viewsets.ModelViewSet):
 
-    queryset = Matricula.objects.all()
+    queryset = Matricula.objects.all().order_by('id')
     serializer_class = MatriculaSerializer
 
 
@@ -31,6 +30,6 @@ class ListaMatriculasEstudante(generics.ListAPIView):
 class ListaMatriculaCurso(generics.ListAPIView):
 
     def get_queryset(self):
-        self.queryset = Matricula.objects.filter(curso_id=self.kwargs['pk'])
+        self.queryset = Matricula.objects.filter(curso_id=self.kwargs['pk']).order_by('id')
         return self.queryset
     serializer_class = ListaMatriculasCursoSerializer
